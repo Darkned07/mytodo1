@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
 import { useLogin } from "../hooks/useLogin";
 import { useGlobalContext } from "../hooks/useGlobalContext";
-import Button from "../components/BUtton";
+import Button from "../components/Button";
 
 function Login() {
   const { isPending } = useGlobalContext();
