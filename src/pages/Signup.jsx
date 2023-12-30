@@ -1,27 +1,16 @@
 import { Link } from "react-router-dom";
-import { auth, googleProvider } from "../firebase/firebaseConfig";
-import { useGlobalContext } from "../hooks/useGlobalContext";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { toast } from "react-toastify";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useSignup } from "../hooks/useSignup";
 
 function Signup() {
-  const { dispatch } = useGlobalContext();
+  const displayName = useRef();
+  const email = useRef();
+  const password = useRef();
+  const photoUrl = useRef();
+  const { signUpWithGoogleProvider, signup } = useSignup();
   const handleGoogleClick = (e) => {
     e.preventDefault();
-
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        GoogleAuthProvider.credentialFromResult(result);
-        const user = result.user;
-        dispatch({ type: "LOGIN", payload: user });
-        toast.success("welcome websites");
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        toast.error(errorMessage);
-      });
+    signUpWithGoogleProvider();
   };
 
   const [dark, setDark] = useState(false);
@@ -36,18 +25,41 @@ function Signup() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signup(
+      displayName.current.value,
+      photoUrl.current.value,
+      email.current.value,
+      password.current.value,
+    );
+  };
+
   return (
     <div className="grid h-screen place-items-center">
       <div>
         <h1 className="text-center text-2xl md:text-4xl">Sign Up</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label className="form-control w-full max-w-xs">
             <div className="label">
               <span className="label-text">Username:</span>
             </div>
             <input
+              ref={displayName}
               type="text"
               placeholder="Username write"
+              className="input input-bordered mb-4 w-full max-w-xs"
+            />
+            <div className="label"></div>
+          </label>
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">PhotoUrl:</span>
+            </div>
+            <input
+              ref={photoUrl}
+              type="url"
+              placeholder="Photo url write"
               className="input input-bordered mb-4 w-full max-w-xs"
             />
             <div className="label"></div>
@@ -57,6 +69,7 @@ function Signup() {
               <span className="label-text">Email:</span>
             </div>
             <input
+              ref={email}
               type="email"
               placeholder="Email write"
               className="input input-bordered w-full max-w-xs"
@@ -68,6 +81,7 @@ function Signup() {
               <span className="label-text">Password:</span>
             </div>
             <input
+              ref={password}
               type="password"
               placeholder="Password write"
               className="input input-bordered w-full max-w-xs"

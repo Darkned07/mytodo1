@@ -11,6 +11,10 @@ const changeState = (state, action) => {
       return { ...state, user: null };
     case "IS_AUTH_READY":
       return { ...state, isAuthReady: true };
+    case "IS_PENDING":
+      return { ...state, isPending: payload };
+    case "ERROR":
+      return { ...state, error: payload };
     default:
       return state;
   }
@@ -20,6 +24,8 @@ export function GlobalContextProvider({ children }) {
   const [state, dispatch] = useReducer(changeState, {
     user: false,
     isAuthReady: false,
+    isPending: false,
+    error: null,
   });
 
   return (

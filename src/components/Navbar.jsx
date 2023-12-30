@@ -20,7 +20,7 @@ function Navbar() {
   };
   const [dark, setDark] = useState(false);
 
- const toogleBtn = () => {
+  const toogleBtn = () => {
     setDark(!dark);
     if (!dark) {
       document.documentElement.setAttribute("data-theme", "dark");
@@ -47,6 +47,11 @@ function Navbar() {
 
         <div className="flex items-center gap-3">
           <p>Welcome, {user.displayName}</p>
+          <div className="avatar">
+            <div className="w-6 rounded-full ring-2 ring-primary ring-offset-1 ring-offset-base-100">
+              <img src={user.photoURL} />
+            </div>
+          </div>
           <button onClick={logout} className="btn btn-secondary btn-sm">
             Logout
           </button>
