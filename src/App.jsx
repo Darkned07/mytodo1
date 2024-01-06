@@ -12,6 +12,7 @@ import { useGlobalContext } from "./hooks/useGlobalContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase/firebaseConfig";
+import Create from "./pages/Create";
 function App() {
   const { user, isAuthReady, dispatch } = useGlobalContext();
   const rotest = createBrowserRouter([
@@ -26,6 +27,10 @@ function App() {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: "create",
+          element: <Create />,
         },
       ],
     },

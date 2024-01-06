@@ -1,9 +1,11 @@
 import React from "react";
 import { useCollection } from "../hooks/useCollection";
 import TodosList from "../components/TodosList";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 
 function Home() {
-  const { documents: todos } = useCollection();
+  const {user} = useGlobalContext()
+  const { documents: todos } = useCollection("todos", ["uid", "==", user.uid]);
   return (
     <div>
       {todos && <TodosList todos={todos} />}

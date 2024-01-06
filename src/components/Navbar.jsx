@@ -34,7 +34,7 @@ function Navbar() {
       <div className="max-container">
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost text-xl">
-            daisyUI
+            My Todo
           </Link>
 
           <button
@@ -55,6 +55,9 @@ function Navbar() {
           <button onClick={logout} className="btn btn-secondary btn-sm">
             Logout
           </button>
+          <Link to="/create" className="btn btn-primary btn-sm ">
+            Create
+          </Link>
         </div>
       </div>
     </div>
